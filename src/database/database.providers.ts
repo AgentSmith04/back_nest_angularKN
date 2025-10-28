@@ -1,6 +1,7 @@
 import { ConfigService } from "src/config/config.service";
 import { DataSource } from "typeorm";
 
+
 export const databaseProvider = [
     {
         provide: 'DATABASE_CONNECTION',
