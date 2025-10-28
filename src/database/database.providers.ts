@@ -11,8 +11,14 @@ export const databaseProvider = [
                 host:config.get('HOST') ||'localhost',
                 port: +config.get('PORT') ,
                 username: config.get('USERNAME' )||'root',
+
+
+
+
+                
                 password: config.get('PASSWORD')||'prueba',
                 database: config.get('DATABASE'),
+                entities: [__dirname + '/../**/*.entity{.ts,.js}'],
             });
             return dataSource.initialize();
         }
