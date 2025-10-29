@@ -1,7 +1,6 @@
 import { ConfigService } from "src/config/config.service";
 import { DataSource } from "typeorm";
 
-
 export const databaseProvider = [
     {
         provide: 'DATABASE_CONNECTION',
@@ -11,12 +10,7 @@ export const databaseProvider = [
                 type:'postgres',
                 host:config.get('HOST') ||'localhost',
                 port: +config.get('PORT') ,
-                username: config.get('USERNAME' )||'root',
-
-
-
-
-                
+                username: config.get('USERNAME' )||'root',     
                 password: config.get('PASSWORD')||'prueba',
                 database: config.get('DATABASE'),
                 entities: [__dirname + '/../**/*.entity{.ts,.js}'],
