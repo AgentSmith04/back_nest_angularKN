@@ -6,26 +6,39 @@ import { Categoria } from './entities/categoria.entity';
 
 @Injectable()
 export class CategoriaService {
-  
-  constructor(@Inject('CATEGORIA_REPOSITORY') private categoriaRepository:Repository<Categoria>){}
-  
-  create(createCategoriaDto: CreateCategoriaDto) {
-    return 'This action adds a new categoria';
+  constructor(
+    @Inject('CATEGORIA_REPOSITORY')
+    private readonly categoriaRepository: Repository<Categoria>,
+  ) {}
+
+  // Crear nueva categoría
+  async create(createCategoriaDto: CreateCategoriaDto): Promise<Categoria> {
+    const nuevaCategoria = this.categoriaRepository.create(createCategoriaDto);
+    return await this.categoriaRepository.save(nuevaCategoria);
   }
 
-  async findAll() {
-    return await this.categoriaRepository.find();
+  // Listar todas
+  async findAll(): Promise<Categoria[]> {
+    return await this.categoriaRepository.find(({order:{id:"asc"}}));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} categoria`;
+  // Buscar una por id
+  async findOne(id: number): Promise<Categoria | null> {
+    return await this.categoriaRepository.findOne({ 
+      where: { id:id } });
   }
 
-  update(id: number, updateCategoriaDto: UpdateCategoriaDto) {
-    return `This action updates a #${id} categoria`;
+  // Actualizar
+  async update(
+    id: number,
+    updateCategoriaDto: UpdateCategoriaDto,
+  ): Promise<Categoria | null> {
+    await this.categoriaRepository.update(id, updateCategoriaDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} categoria`;
+  // Eliminar
+  async remove(id: number) {
+    return await this.categoriaRepository.delete(id);
   }
 }

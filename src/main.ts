@@ -5,7 +5,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
   //CORS
   app.enableCors();
   
@@ -14,6 +13,7 @@ async function bootstrap() {
 
   //Swagger
   const config = new DocumentBuilder()
+  .addBearerAuth()
   .setTitle('Cats example')
   .setDescription('The product API description')
   .setVersion('1.0')
